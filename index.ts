@@ -157,7 +157,7 @@ function computeTypeLayout_Array(desc: TypeDescriptor_Array, rules: LayoutRules)
     minByteAlign: elementType.minByteAlign,
     unsized,
     byteStride,
-    arrayLength: arrayLength,
+    arrayLength,
     elementType,
   };
 }
@@ -218,7 +218,7 @@ function computeTypeLayout_Struct(
     }
     const memberSize = info?.size ?? type.minByteSize;
 
-    members.push({ name, byteOffset: memberOffset, type: type });
+    members.push({ name, byteOffset: memberOffset, type });
 
     if (type.unsized) {
       totalSize = 'unsized';
@@ -519,10 +519,7 @@ export class StructuredAccessorFactory<T extends TypeDescriptor> {
     this.layout = computeTypeLayout(desc, rules);
   }
 
-  create(
-    buffer: ArrayBuffer,
-    baseOffset: number = 0
-  ): StructuredAccessor<ResolveType<Accessor<T>>> {
+  create(buffer: ArrayBuffer, baseOffset = 0): StructuredAccessor<ResolveType<Accessor<T>>> {
     /* prettier-ignore */ assert(this.layout.minByteSize <= buffer.byteLength - baseOffset,
       () => `Accessor requires ${this.layout.minByteSize} bytes past ${baseOffset}, but ArrayBuffer is ${buffer.byteLength} bytes`);
     const backing = allTypedArrays(buffer);

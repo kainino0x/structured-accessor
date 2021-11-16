@@ -1,0 +1,22 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "lib": ["dom", "es2018"],
+    "module": "esnext",
+    /* Output options */
+    "noEmit": true,
+    /* Strict type-checking options */
+    "allowJs": false,
+    "strict": true,
+    /* tsc lint options */
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    /* These should be caught be eslint instead */
+    "noUnusedLocals": false,
+    "allowUnreachableCode": true,
+    /* Module Options */
+    "moduleResolution": "node",
+    "esModuleInterop": false
+  },
+  "include": ["index.ts"],
+}
